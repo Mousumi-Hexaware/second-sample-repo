@@ -6,4 +6,4 @@ EXPOSE 443
 
 WORKDIR /app
 COPY . .
-ENTRYPOINT ["dotnet", "new comp.Api.dll"]
+ENTRYPOINT ["dotnet", "changes component.Api.dll"]

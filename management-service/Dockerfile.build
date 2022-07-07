@@ -4,20 +4,20 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 WORKDIR /src
-COPY ["Code/new comp.Api/new comp.Api.csproj", "Code/new comp.Api/"]
-COPY ["Code/new comp.Business/new comp.Business.csproj", "Code/new comp.Business/"]
-COPY ["Code/new comp.Data/new comp.Data.csproj", "Code/new comp.Data/"]
-COPY ["Code/new comp.Entities/new comp.Entities.csproj", "Code/new comp.Entities/"]
-COPY ["Code/new comp.Test.Api/new comp.Test.Api.csproj", "Code/new comp.Test.Api/"]
-COPY ["Code/new comp.Test.Business/new comp.Test.Business.csproj", "Code/new comp.Test.Business/"]
-RUN dotnet restore "Code/new comp.Api/new comp.Api.csproj"
+COPY ["Code/changes component.Api/changes component.Api.csproj", "Code/changes component.Api/"]
+COPY ["Code/changes component.Business/changes component.Business.csproj", "Code/changes component.Business/"]
+COPY ["Code/changes component.Data/changes component.Data.csproj", "Code/changes component.Data/"]
+COPY ["Code/changes component.Entities/changes component.Entities.csproj", "Code/changes component.Entities/"]
+COPY ["Code/changes component.Test.Api/changes component.Test.Api.csproj", "Code/changes component.Test.Api/"]
+COPY ["Code/changes component.Test.Business/changes component.Test.Business.csproj", "Code/changes component.Test.Business/"]
+RUN dotnet restore "Code/changes component.Api/changes component.Api.csproj"
 COPY . .
-WORKDIR "/src/Code/new comp.Api"
-RUN dotnet build "new comp.Api.csproj" -c Release -o /app/build
+WORKDIR "/src/Code/changes component.Api"
+RUN dotnet build "changes component.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "new comp.Api.csproj" -c Release -o /app/publish
+RUN dotnet publish "changes component.Api.csproj" -c Release -o /app/publish
 
 WORKDIR /src
-RUN dotnet test --results-directory /testresults --logger "trx;LogFileName=testresults.Api.trx" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/testresults/coverage/ /p:MergeWith=/testresults/coverage/coverage.json "Code/new comp.Test.Api/new comp.Test.Api.csproj"
-RUN dotnet test --results-directory /testresults --logger "trx;LogFileName=testresults.Api.trx" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/testresults/coverage/ /p:MergeWith=/testresults/coverage/coverage.json "Code/new comp.Test.Business/new comp.Test.Business.csproj"
+RUN dotnet test --results-directory /testresults --logger "trx;LogFileName=testresults.Api.trx" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/testresults/coverage/ /p:MergeWith=/testresults/coverage/coverage.json "Code/changes component.Test.Api/changes component.Test.Api.csproj"
+RUN dotnet test --results-directory /testresults --logger "trx;LogFileName=testresults.Api.trx" /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/testresults/coverage/ /p:MergeWith=/testresults/coverage/coverage.json "Code/changes component.Test.Business/changes component.Test.Business.csproj"
